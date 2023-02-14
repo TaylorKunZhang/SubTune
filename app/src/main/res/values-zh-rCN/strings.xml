@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">SubTune</string>
+    <string name="back">返回</string>
+    <string name="clear">清除</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="empty_content">暂无内容</string>
+    <string name="error_content">加载数据失败</string>
+    <string name="error_retry_button_content">点击刷新</string>
+    <string name="feature_version_12_limit">此功能仅在 Android 12 及以上版本可用</string>
+
+    <string name="error_generic">一般错误</string>
+    <string name="error_missing_parameter">缺少必需的参数</string>
+    <string name="error_upgrade_client">协议版本不兼容，请升级客户端</string>
+    <string name="error_upgrade_server">协议版本不兼容，请升级服务器</string>
+    <string name="error_auth_fail">用户名或密码错误</string>
+    <string name="error_not_supported_ldap">LDAP 用户不支持令牌身份验证</string>
+    <string name="error_no_permission">无操作权限</string>
+    <string name="error_trial_expired">Subsonic 服务器试用期已结束，请升级到 Subsonic Premium，访问 subsonic.org 了解详情</string>
+    <string name="error_data_not_found">未找到请求的数据</string>
+    <string name="error_connect_failed">无法连接到服务器</string>
+    <string name="error_unknown">未知错误</string>
+
+    <string name="login">登录</string>
+    <string name="server_url">服务器地址</string>
+    <string name="server_url_required">服务器地址不能为空</string>
+    <string name="username">用户名</string>
+    <string name="username_required">用户名不能为空</string>
+    <string name="password">密码</string>
+    <string name="password_required">密码不能为空</string>
+    <string name="https">HTTPS</string>
+
+    <string name="album">专辑</string>
+    <string name="album_sort_or_filter">专辑排序或筛选</string>
+    <string-array name="album_sort_or_filter">
+        <item>根据名称</item>
+        <item>根据歌手</item>
+        <item>最近添加</item>
+        <item>播放最多</item>
+        <item>最近播放</item>
+        <item>已收藏</item>
+        <item>随机</item>
+    </string-array>
+
+    <string name="playlist">歌单</string>
+
+    <string name="search">搜索</string>
+    <string name="see_more">查看更多</string>
+    <string name="song">歌曲</string>
+
+    <string name="playback_mode_in_order">顺序播放</string>
+    <string name="playback_mode_repeat">列表循环</string>
+    <string name="playback_mode_repeat_one">单曲循环</string>
+    <string name="playback_mode_shuffle">随机播放</string>
+    <string name="playback_net_error">网络异常，请检查网络后重试</string>
+    <string name="current_playback">当前播放(%d)</string>
+    <string name="clear_playback_list_message">你确定要清空播放列表？</string>
+
+    <string name="settings">设置</string>
+    <string name="server">服务器</string>
+    <string name="network">网络</string>
+    <string name="max_bitrate_wifi">最大比特率 - WIFI</string>
+    <string name="max_bitrate_mobile">最大比特率 - 移动网络</string>
+    <string name="kbps_value">%dkbps</string>
+    <string name="unlimited_kbps">不限制</string>
+    <string name="theme">主题</string>
+    <string name="preferred_theme">首选主题</string>
+    <string name="theme_follow_system">跟随系统</string>
+    <string name="theme_light_mode">浅色模式</string>
+    <string name="theme_dark_mode">深色模式</string>
+    <string name="dynamic_color">动态颜色</string>
+    <string name="logout">退出登录</string>
+    <string name="logout_message">你确定要退出登录吗？</string>
+</resources>

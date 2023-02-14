@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">SubTune</string>
+    <string name="back">Back</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="sure">Sure</string>
+    <string name="empty_content">No Content yet</string>
+    <string name="error_content">Failed to load data</string>
+    <string name="error_retry_button_content">Click to refresh</string>
+    <string name="feature_version_12_limit">This feature is only available on Android 12 and above</string>
+
+    <string name="error_generic">A generic error.</string>
+    <string name="error_missing_parameter">Required parameter is missing.</string>
+    <string name="error_upgrade_client">Incompatible protocol version, Please upgrade the client.</string>
+    <string name="error_upgrade_server">Incompatible protocol version, Please upgrade the server.</string>
+    <string name="error_auth_fail">Wrong username or password.</string>
+    <string name="error_not_supported_ldap">Token authentication not supported for LDAP users.</string>
+    <string name="error_no_permission">No operation permission.</string>
+    <string name="error_trial_expired">The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium. Visit subsonic.org for details</string>
+    <string name="error_data_not_found">The requested data was not found.</string>
+    <string name="error_connect_failed">Could not connect to server.</string>
+    <string name="error_unknown">Unknown Error</string>
+
+    <string name="login">Login</string>
+    <string name="server_url">Server Url</string>
+    <string name="server_url_required">Server Url is required</string>
+    <string name="username">Username</string>
+    <string name="username_required">Username is required</string>
+    <string name="password">Password</string>
+    <string name="password_required">Password is required</string>
+    <string name="https">HTTPS</string>
+
+    <string name="album">Album</string>
+    <string name="album_sort_or_filter">Album Sort Or Filter</string>
+    <string-array name="album_sort_or_filter">
+        <item>By Name</item>
+        <item>By Artist</item>
+        <item>Recently Added</item>
+        <item>Frequently Played</item>
+        <item>Recently Played</item>
+        <item>Starred</item>
+        <item>Random</item>
+    </string-array>
+    <string-array name="album_sort_or_filter_values" translatable="false">
+        <item>alphabeticalByName</item>
+        <item>alphabeticalByArtist</item>
+        <item>newest</item>
+        <item>frequent</item>
+        <item>recent</item>
+        <item>starred</item>
+        <item>random</item>
+    </string-array>
+
+    <string name="playlist">Playlist</string>
+
+    <string name="search">Search</string>
+    <string name="see_more">See more</string>
+    <string name="song">Song</string>
+
+    <string name="playback_mode_in_order">In order</string>
+    <string name="playback_mode_repeat">Repeat</string>
+    <string name="playback_mode_repeat_one">Repeat One</string>
+    <string name="playback_mode_shuffle">Shuffle</string>
+    <string name="playback_net_error">Connection error, please check your network and try again.</string>
+    <string name="current_playback">Current Playback (%d)</string>
+    <string name="clear_playback_list_message">Are you sure you want to clear the playback list?</string>
+
+    <string name="settings">Settings</string>
+    <string name="server">Server</string>
+    <string name="network">NetWork</string>
+    <string name="max_bitrate_wifi">Max Bitrate - Wi-Fi</string>
+    <string name="max_bitrate_mobile">Max Bitrate - Mobile</string>
+    <string name="kbps_value">%dkbps</string>
+    <string name="unlimited_kbps">Unlimited</string>
+    <string name="theme">Theme</string>
+    <string name="preferred_theme">Preferred Theme</string>
+    <string name="theme_follow_system">Follow System</string>
+    <string name="theme_light_mode">Light Mode</string>
+    <string name="theme_dark_mode">Dark Mode</string>
+    <string name="dynamic_color">Dynamic Color</string>
+    <string name="logout">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+</resources>
