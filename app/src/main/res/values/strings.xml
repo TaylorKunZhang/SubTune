@@ -78,6 +78,11 @@
     <string name="theme_light_mode">Light Mode</string>
     <string name="theme_dark_mode">Dark Mode</string>
     <string name="dynamic_color">Dynamic Color</string>
+    <string name="other">Other</string>
+    <string name="about_subtune">About SubTune</string>
+    <string name="version_name" translatable="false">Version %s</string>
+    <string name="project_homepage">Project Homepage</string>
+    <string name="developer">Made with ♥ by Taylor Zhang</string>
     <string name="logout">Logout</string>
     <string name="logout_message">Are you sure you want to logout?</string>
 </resources>

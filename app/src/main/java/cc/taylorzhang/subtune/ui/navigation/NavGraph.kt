@@ -10,6 +10,7 @@ import cc.taylorzhang.subtune.ui.main.MainScreen
 import cc.taylorzhang.subtune.ui.playback.PlaybackScreen
 import cc.taylorzhang.subtune.ui.playlist.PlaylistDetailScreen
 import cc.taylorzhang.subtune.ui.search.SearchScreen
+import cc.taylorzhang.subtune.ui.settings.AboutScreen
 import cc.taylorzhang.subtune.ui.splash.SplashScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -59,6 +60,9 @@ fun NavGraph() {
         }
         composable(route = Screen.Search.route) {
             SearchScreen()
+        }
+        composable(route = Screen.About.route) {
+            AboutScreen()
         }
     }
 }

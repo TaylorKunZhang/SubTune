@@ -69,6 +69,10 @@
     <string name="theme_light_mode">浅色模式</string>
     <string name="theme_dark_mode">深色模式</string>
     <string name="dynamic_color">动态颜色</string>
+    <string name="other">其他</string>
+    <string name="about_subtune">关于 SubTune</string>
+    <string name="project_homepage">项目地址</string>
+    <string name="developer">开发者：Taylor Zhang</string>
     <string name="logout">退出登录</string>
     <string name="logout_message">你确定要退出登录吗？</string>
 </resources>

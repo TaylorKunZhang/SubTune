@@ -2,6 +2,10 @@ package cc.taylorzhang.subtune.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NavigateNext
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -90,7 +94,8 @@ fun SettingsScreen(viewModel: SettingsViewModel = getViewModel()) {
         onMaxBitrateWifiClick = { showMaxBitrateWifiChoiceDialog = true },
         onMaxBitrateMobileClick = { showMaxBitrateMobileChoiceDialog = true },
         onPreferredThemeClick = { showThemeChoiceDialog = true },
-        onDynamicColorCheckedChange = { viewModel.updateDynamicColor(it) }
+        onDynamicColorCheckedChange = { viewModel.updateDynamicColor(it) },
+        onAboutClick = { navController.navigate(Screen.About.route) },
     )
 }
 
@@ -102,6 +107,7 @@ private fun SettingsContent(
     onMaxBitrateMobileClick: () -> Unit,
     onPreferredThemeClick: () -> Unit,
     onDynamicColorCheckedChange: (Boolean) -> Unit,
+    onAboutClick: () -> Unit,
     onLogoutClick: () -> Unit,
 ) {
     Column(
@@ -115,31 +121,37 @@ private fun SettingsContent(
             ),
             title = { Text(stringResource(id = R.string.settings)) },
         )
-        SettingsServer(uiState = uiState)
-        SettingsNetwork(
-            uiState = uiState,
-            onMaxBitrateWifiClick = onMaxBitrateWifiClick,
-            onMaxBitrateMobileClick = onMaxBitrateMobileClick,
-        )
-        SettingsTheme(
-            uiState = uiState,
-            onPreferredThemeClick = onPreferredThemeClick,
-            onDynamicColorCheckedChange = onDynamicColorCheckedChange,
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-            ),
-            onClick = onLogoutClick,
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
         ) {
-            Text(
-                text = stringResource(id = R.string.logout),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+            SettingsServer(uiState = uiState)
+            SettingsNetwork(
+                uiState = uiState,
+                onMaxBitrateWifiClick = onMaxBitrateWifiClick,
+                onMaxBitrateMobileClick = onMaxBitrateMobileClick,
             )
+            SettingsTheme(
+                uiState = uiState,
+                onPreferredThemeClick = onPreferredThemeClick,
+                onDynamicColorCheckedChange = onDynamicColorCheckedChange,
+            )
+            SettingsOther(
+                onAboutClick = onAboutClick,
+            )
+            Button(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                ),
+                onClick = onLogoutClick,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.logout),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+            }
         }
     }
 }
@@ -252,6 +264,29 @@ private fun SettingsTheme(
     )
 }
 
+@Composable
+private fun SettingsOther(
+    onAboutClick: () -> Unit,
+) {
+    Text(
+        text = stringResource(id = R.string.other),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(horizontal = 16.dp),
+    )
+    ListItem(
+        modifier = Modifier.clickable(onClick = onAboutClick),
+        colors = ListItemDefaults.colors(
+            containerColor = Color.Transparent,
+        ),
+        headlineText = {
+            Text(text = stringResource(id = R.string.about_subtune))
+        },
+        trailingContent = {
+            Icon(Icons.Filled.NavigateNext, null)
+        }
+    )
+}
+
 @Preview
 @Composable
 fun SettingsScreenPreview() {
@@ -269,6 +304,7 @@ fun SettingsScreenPreview() {
             onMaxBitrateMobileClick = { },
             onPreferredThemeClick = { },
             onDynamicColorCheckedChange = { },
+            onAboutClick = { },
             onLogoutClick = { },
         )
     }
