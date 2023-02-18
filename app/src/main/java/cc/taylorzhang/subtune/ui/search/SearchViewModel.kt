@@ -7,6 +7,7 @@ import cc.taylorzhang.subtune.model.Album
 import cc.taylorzhang.subtune.model.Song
 import cc.taylorzhang.subtune.model.onError
 import cc.taylorzhang.subtune.model.onSuccess
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,27 +20,32 @@ class SearchViewModel(
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState = _uiState.asStateFlow()
 
+    private var searchJob: Job? = null
+
     fun updateQuery(value: String) {
         _uiState.update { it.copy(query = value) }
     }
 
-    fun search() = viewModelScope.launch {
-        val query = _uiState.value.query
-        if (query.isEmpty()) return@launch
-        _uiState.update { it.copy(isLoading = true) }
-        musicRepository.search3(query).onSuccess { result ->
-            _uiState.update {
-                it.copy(
-                    isLoading = false,
-                    album = result.album,
-                    song = result.song,
-                    error = null,
-                    showAlbumMore = false,
-                    showSongMore = false,
-                )
+    fun search() {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            val query = _uiState.value.query
+            if (query.isEmpty()) return@launch
+            _uiState.update { it.copy(isLoading = true) }
+            musicRepository.search3(query).onSuccess { result ->
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        album = result.album,
+                        song = result.song,
+                        error = null,
+                        showAlbumMore = false,
+                        showSongMore = false,
+                    )
+                }
+            }.onError { error ->
+                _uiState.update { it.copy(isLoading = false, error = error) }
             }
-        }.onError { error ->
-            _uiState.update { it.copy(isLoading = false, error = error) }
         }
     }
 
