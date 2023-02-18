@@ -33,6 +33,7 @@ fun ErrorLayout(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState())
             .previewBackground(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.Center,
