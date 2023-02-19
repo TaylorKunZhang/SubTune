@@ -6,6 +6,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        def properties = new Properties()
+        properties.load(rootProject.file('local.properties').newDataInputStream())
+
+        release {
+            if (properties['storeFile']) {
+                storeFile file(properties['storeFile'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+    }
+
     namespace 'cc.taylorzhang.subtune'
     compileSdk 33
 
@@ -26,6 +40,7 @@ android {
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -49,6 +64,12 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "SubTune-${variant.versionName}.apk"
         }
     }
 }
