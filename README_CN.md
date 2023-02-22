@@ -1,10 +1,10 @@
-English | [简体中文](README_CN.md)
+[English](README.md) | 简体中文
 
 ![SubTune](https://socialify.git.ci/TaylorKunZhang/SubTune/image?description=1&descriptionEditable=A%20music%20streaming%20app%20for%20Subsonic%20API%20compatible%20servers&logo=https%3A%2F%2Fraw.githubusercontent.com%2FTaylorKunZhang%2Fpic-repo%2Fmain%2FSubTune%2Fic_launcher_round.png&name=1&pattern=Circuit%20Board&theme=Light)
 
-SubTune is a free and open source music streaming Android client for Subsonic API (version 1.13.0 or higher) compatible servers ([Subsonic](http://www.subsonic.org/pages/index.jsp), [Navidrome](https://www.navidrome.org/), [Airsonic](https://airsonic.github.io/), and more).
+SubTune 是一个免费的开源音乐流媒体 Android 客户端，适用于 Subsonic API（1.13.0 或更高版本）兼容服务器（[Subsonic](http://www.subsonic.org/pages/index.jsp)、[Navidrome]( https://www.navidrome.org/)、[Airsonic](https://airsonic.github.io/) 等）。
 
-## Screenshots
+## 界面截图
 
 <p>
   <img src="screenshots/album.png" alt="album" width="300"/>
@@ -13,20 +13,20 @@ SubTune is a free and open source music streaming Android client for Subsonic AP
   <img src="screenshots/playback.png" alt="playback" width="300"/>
 </p>
 
-## Download
+## 下载
 
 <p>
   <a href="https://github.com/TaylorKunZhang/SubTune/releases/latest"><img src="https://raw.githubusercontent.com/TaylorKunZhang/pic-repo/main/GitHub/get-it-on.png" height="80"/></a>
 </p>
 
-## Features
+## 特征
 
 - Material 3 design
-- Browse albums, playlists
-- Search albums and songs
-- Max bitrate settings
-- Dark theme
-- Dynamic color
+- 浏览专辑和歌单
+- 搜索专辑和歌曲
+- 设置最大比特率
+- 深色模式
+- 动态颜色
 
 ## License
 
