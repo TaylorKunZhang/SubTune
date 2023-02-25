@@ -16,6 +16,7 @@ SubTune is a free and open source music streaming Android client for Subsonic AP
 ## Download
 
 <p>
+  <a href="https://play.google.com/store/apps/details?id=cc.taylorzhang.subtune"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="80"/></a>
   <a href="https://github.com/TaylorKunZhang/SubTune/releases/latest"><img src="https://raw.githubusercontent.com/TaylorKunZhang/pic-repo/main/GitHub/get-it-on.png" height="80"/></a>
 </p>
 

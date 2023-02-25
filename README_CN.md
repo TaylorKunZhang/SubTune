@@ -16,6 +16,7 @@ SubTune 是一个免费的开源音乐流媒体 Android 客户端，适用于 Su
 ## 下载
 
 <p>
+  <a href="https://play.google.com/store/apps/details?id=cc.taylorzhang.subtune"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="80"/></a>
   <a href="https://github.com/TaylorKunZhang/SubTune/releases/latest"><img src="https://raw.githubusercontent.com/TaylorKunZhang/pic-repo/main/GitHub/get-it-on.png" height="80"/></a>
 </p>
 
