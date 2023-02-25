@@ -20,7 +20,7 @@ SubTune 是一个免费的开源音乐流媒体 Android 客户端，适用于 Su
   <a href="https://github.com/TaylorKunZhang/SubTune/releases/latest"><img src="https://raw.githubusercontent.com/TaylorKunZhang/pic-repo/main/GitHub/get-it-on.png" height="80"/></a>
 </p>
 
-## 特征
+## 特性
 
 - Material 3 design
 - 浏览专辑和歌单
