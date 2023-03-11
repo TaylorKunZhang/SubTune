@@ -1,7 +1,6 @@
 package cc.taylorzhang.subtune.data.http.response
 
 import androidx.annotation.Keep
-import cc.taylorzhang.subtune.model.Error
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -13,7 +12,5 @@ data class PingResponse(
 ) {
     @Keep
     @JsonClass(generateAdapter = true)
-    data class SubsonicResponse(
-        override val error: Error?,
-    ) : BaseSubsonicResponse<Unit>(error, Unit)
+    class SubsonicResponse : BaseSubsonicResponse<Unit>(Unit)
 }

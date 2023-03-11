@@ -1,14 +1,13 @@
 package cc.taylorzhang.subtune.data.http.response
 
 import androidx.annotation.Keep
-import cc.taylorzhang.subtune.model.Error
 import cc.taylorzhang.subtune.model.Playlist
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-class GetPlaylistsResponse(
+data class GetPlaylistsResponse(
     @Json(name = "subsonic-response")
     val response: SubsonicResponse
 ) {
@@ -16,9 +15,8 @@ class GetPlaylistsResponse(
     @Keep
     @JsonClass(generateAdapter = true)
     data class SubsonicResponse(
-        override val error: Error?,
         val playlists: Playlists?
-    ) : BaseSubsonicResponse<List<Playlist>>(error, playlists?.playlist)
+    ) : BaseSubsonicResponse<List<Playlist>>(playlists?.playlist)
 
     @Keep
     @JsonClass(generateAdapter = true)
