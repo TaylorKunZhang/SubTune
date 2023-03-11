@@ -5,6 +5,7 @@ import cc.taylorzhang.subtune.ui.album.AlbumDetailViewModel
 import cc.taylorzhang.subtune.ui.album.AlbumViewModel
 import cc.taylorzhang.subtune.ui.login.LoginViewModel
 import cc.taylorzhang.subtune.ui.main.MainViewModel
+import cc.taylorzhang.subtune.ui.playback.PlaybackViewModel
 import cc.taylorzhang.subtune.ui.playlist.PlaylistDetailViewModel
 import cc.taylorzhang.subtune.ui.playlist.PlaylistViewModel
 import cc.taylorzhang.subtune.ui.search.SearchViewModel
@@ -24,4 +25,5 @@ val viewModelModule = module {
     viewModel { params -> PlaylistDetailViewModel(params[0], get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { SettingsViewModel(get(), get(), get()) }
+    viewModel { PlaybackViewModel(get()) }
 }

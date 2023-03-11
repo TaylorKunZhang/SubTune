@@ -128,6 +128,13 @@ class MusicRepository(
     }
 
     /**
+     * Searches for and returns lyrics for a given song.
+     */
+    suspend fun getLyrics(artist: String, title: String): ApiResult<Lyrics> {
+        return HttpUtil.apiCall { subsonicApi.getLyrics(artist, title).response }
+    }
+
+    /**
      * Returns a cover art image uri.
      *
      * @param id The ID of a song, album or artist.

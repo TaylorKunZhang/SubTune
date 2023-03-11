@@ -60,4 +60,13 @@ interface SubsonicApi {
      */
     @GET("rest/search3")
     suspend fun search3(@Query("query") query: String): Search3Response
+
+    /**
+     * Searches for and returns lyrics for a given song.
+     */
+    @GET("rest/getLyrics")
+    suspend fun getLyrics(
+        @Query("artist") artist: String,
+        @Query("title") title: String
+    ): GetLyricsResponse
 }

@@ -64,6 +64,7 @@
     <string name="playback_net_error">Connection error, please check your network and try again.</string>
     <string name="current_playback">Current Playback (%d)</string>
     <string name="clear_playback_list_message">Are you sure you want to clear the playback list?</string>
+    <string name="playback_no_lyrics">No Lyrics</string>
 
     <string name="settings">Settings</string>
     <string name="server">Server</string>

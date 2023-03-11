@@ -49,7 +49,7 @@ fun ErrorLayout(
             text = message,
             modifier = Modifier.padding(vertical = 30.dp),
             color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyLarge,
         )
         Button(
             colors = ButtonDefaults.buttonColors(

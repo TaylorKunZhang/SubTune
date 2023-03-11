@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cc.taylorzhang.subtune.R
@@ -18,7 +19,8 @@ import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 @Composable
 fun EmptyLayout(
     modifier: Modifier = Modifier,
-    contentText: String = stringResource(id = R.string.empty_content)
+    contentText: String = stringResource(id = R.string.empty_content),
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     Column(
         modifier = modifier
@@ -30,8 +32,8 @@ fun EmptyLayout(
     ) {
         Text(
             text = contentText,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
+            color = contentColor,
+            style = MaterialTheme.typography.bodyLarge,
         )
     }
 }
