@@ -31,11 +31,13 @@ class MusicRepository(
 ) {
 
     companion object {
-        private const val CACHE_DIR_NAME = "music_cache"
+        private const val MUSIC_CACHE_DIR_NAME = "music_cache"
+        private const val LYRICS_CACHE_DIR_NAME = "lyrics_cache"
         private const val cacheSize = 4 * 1024 * 1024 * 1024L // TODO: Custom Cache Size
     }
 
-    private val cacheDir by lazy { context.cacheDir.resolve(CACHE_DIR_NAME) }
+    private val musicCacheDir by lazy { context.cacheDir.resolve(MUSIC_CACHE_DIR_NAME) }
+    private val lyricsCacheDir by lazy { context.cacheDir.resolve(LYRICS_CACHE_DIR_NAME) }
     val cacheDataSourceFactory by lazy { initCacheDataSourceFactory() }
 
     /**
@@ -130,8 +132,28 @@ class MusicRepository(
     /**
      * Searches for and returns lyrics for a given song.
      */
-    suspend fun getLyrics(artist: String, title: String): ApiResult<Lyrics> {
-        return HttpUtil.apiCall { subsonicApi.getLyrics(artist, title).response }
+    suspend fun getLyrics(id: String, artist: String, title: String): ApiResult<Lyrics> {
+        return HttpUtil.apiCall(
+            call = { subsonicApi.getLyrics(artist, title).response },
+            saveCacheBlock = {
+                withContext(Dispatchers.IO) {
+                    if (!lyricsCacheDir.exists()) {
+                        lyricsCacheDir.mkdir()
+                    }
+                    File(lyricsCacheDir, id).writeText(it.value)
+                }
+            },
+            readCacheBlock = {
+                val file = File(lyricsCacheDir, id)
+                if (file.exists()) {
+                    withContext(Dispatchers.IO) {
+                        Lyrics(artist = artist, title = title, value = file.readText())
+                    }
+                } else {
+                    null
+                }
+            },
+        )
     }
 
     /**
@@ -166,7 +188,8 @@ class MusicRepository(
     @OptIn(UnstableApi::class)
     suspend fun clearCache() = withContext(Dispatchers.IO) {
         db.clearAllTables()
-        deleteFile(cacheDir)
+        deleteFile(musicCacheDir)
+        deleteFile(lyricsCacheDir)
     }
 
     suspend fun clearAlbumCache() {
@@ -177,7 +200,7 @@ class MusicRepository(
     private fun initCacheDataSourceFactory(): CacheDataSource.Factory {
         val databaseProvider = StandaloneDatabaseProvider(context)
         val cacheEvictor = LeastRecentlyUsedCacheEvictor(cacheSize)
-        val simpleCache = SimpleCache(cacheDir, cacheEvictor, databaseProvider)
+        val simpleCache = SimpleCache(musicCacheDir, cacheEvictor, databaseProvider)
 
         val httpDataSourceFactory = DefaultHttpDataSource.Factory()
             .setAllowCrossProtocolRedirects(true)

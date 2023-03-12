@@ -24,10 +24,14 @@ class PlaybackViewModel(
         if (song == null) return@launch
 
         _uiState.update { it.copy(lyricsLoading = true) }
-        musicRepository.getLyrics(artist = song.artist, title = song.title).onSuccess { lyrics ->
+        musicRepository.getLyrics(
+            id = song.id,
+            artist = song.artist,
+            title = song.title,
+        ).onSuccess { lyrics ->
             if (song.id == _uiState.value.song?.id) {
                 if (lyrics.value.isEmpty()) {
-                    _uiState.update { it.copy(lyricsLoading = false, lyricsList = emptyList()) }
+                    _uiState.update { it.copy(lyricsLoading = false) }
                 } else {
                     val lyricsList = lyrics.value.split("\n").map { LyricsItem(lyrics = it) }
                         .filter { it.lyrics.isNotEmpty() }
@@ -35,7 +39,9 @@ class PlaybackViewModel(
                 }
             }
         }.onError {
-            _uiState.update { it.copy(lyricsLoading = false) }
+            if (song.id == _uiState.value.song?.id) {
+                _uiState.update { it.copy(lyricsLoading = false) }
+            }
         }
     }
 
