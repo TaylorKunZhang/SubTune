@@ -86,12 +86,22 @@ class LoginViewModel(
     }
 
     private fun toServer(): Server {
+        var url = uiState.value.url
+        var httpsEnabled = uiState.value.httpsEnabled
+        if (url.startsWith("https://", ignoreCase = true)) {
+            url = url.substring("https://".length)
+            httpsEnabled = true
+        } else if (url.startsWith("http://", ignoreCase = true)) {
+            url = url.substring("http://".length)
+            httpsEnabled = false
+        }
+
         return Server(
-            url = uiState.value.url,
+            url = url,
             username = uiState.value.username,
             token = md5(uiState.value.password + salt),
             salt = salt,
-            httpsEnabled = uiState.value.httpsEnabled,
+            httpsEnabled = httpsEnabled,
             loggedIn = false,
         )
     }

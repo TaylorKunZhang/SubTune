@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cc.taylorzhang.subtune.R
+import cc.taylorzhang.subtune.data.http.HttpUtil
 import cc.taylorzhang.subtune.data.repository.MusicRepository
 import cc.taylorzhang.subtune.data.repository.ServerRepository
 import cc.taylorzhang.subtune.data.repository.SettingsRepository
@@ -25,7 +26,7 @@ class SettingsViewModel(
 
     init {
         val server = serverRepository.serverFlow.value
-        _uiState.update { it.copy(url = server.url, username = server.username) }
+        _uiState.update { it.copy(url = HttpUtil.baseUrl(), username = server.username) }
 
         viewModelScope.launch {
             settingsRepository.settingsFlow.collect { settings ->
