@@ -3,6 +3,7 @@ package cc.taylorzhang.subtune.di
 import android.content.Context
 import androidx.room.Room
 import cc.taylorzhang.subtune.data.database.AppDatabase
+import cc.taylorzhang.subtune.data.database.MIGRATION_1_2
 import cc.taylorzhang.subtune.data.datastore.ServerPreferences
 import cc.taylorzhang.subtune.data.datastore.SettingsPreferences
 import cc.taylorzhang.subtune.data.repository.MusicRepository
@@ -23,5 +24,6 @@ val dataModule = module {
 
 private fun provideAppDatabase(context: Context): AppDatabase {
     return Room.databaseBuilder(context, AppDatabase::class.java, "subtune")
+        .addMigrations(MIGRATION_1_2)
         .build()
 }

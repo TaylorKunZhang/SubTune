@@ -33,6 +33,6 @@ class PlaylistDetailViewModel(
     }
 
     fun getSongCoverArtUrl(song: Song): String {
-        return musicRepository.getCoverArtUri(song.albumId).toString()
+        return musicRepository.getCoverArtUri(song.coverArt).toString()
     }
 }

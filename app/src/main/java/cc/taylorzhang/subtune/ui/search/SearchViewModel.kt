@@ -58,10 +58,10 @@ class SearchViewModel(
     }
 
     fun getCoverArtUrl(album: Album): String {
-        return musicRepository.getCoverArtUri(album.id).toString()
+        return musicRepository.getCoverArtUri(album.coverArt ?: "").toString()
     }
 
     fun getCoverArtUrl(song: Song): String {
-        return musicRepository.getCoverArtUri(song.albumId).toString()
+        return musicRepository.getCoverArtUri(song.coverArt).toString()
     }
 }

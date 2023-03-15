@@ -32,6 +32,9 @@ data class Playlist(
 
     @ColumnInfo(name = "created")
     val created: String = "",
+
+    @ColumnInfo(name = "cover_art")
+    val coverArt: String = "",
 ) {
     @Ignore
     var entry: List<Song> = ArrayList()

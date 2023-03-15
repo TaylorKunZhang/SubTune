@@ -35,6 +35,6 @@ class PlaylistViewModel(
     }
 
     fun getCoverArtUrl(playlist: Playlist): String {
-        return musicRepository.getCoverArtUri(playlist.id).toString()
+        return musicRepository.getCoverArtUri(playlist.coverArt).toString()
     }
 }

@@ -21,6 +21,6 @@ data class GetPlaylistsResponse(
     @Keep
     @JsonClass(generateAdapter = true)
     data class Playlists(
-        val playlist: List<Playlist>
+        val playlist: List<Playlist> = ArrayList()
     )
 }

@@ -10,7 +10,7 @@ import cc.taylorzhang.subtune.model.Playlist
 import cc.taylorzhang.subtune.model.Song
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         Album::class,
         Playlist::class,

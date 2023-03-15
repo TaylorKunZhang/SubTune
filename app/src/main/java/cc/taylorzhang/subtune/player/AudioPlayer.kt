@@ -213,7 +213,7 @@ class AudioPlayer(
             .setTitle(song.title)
             .setArtist(song.artist)
             .setGenre(song.genre)
-            .setArtworkUri(musicRepository.getCoverArtUri(song.albumId))
+            .setArtworkUri(musicRepository.getCoverArtUri(song.coverArt))
             .build()
 
         return MediaItem.Builder()

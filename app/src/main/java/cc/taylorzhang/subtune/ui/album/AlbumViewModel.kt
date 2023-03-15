@@ -38,7 +38,7 @@ class AlbumViewModel(
     }
 
     fun getCoverArtUrl(album: Album): String {
-        return musicRepository.getCoverArtUri(album.id).toString()
+        return musicRepository.getCoverArtUri(album.coverArt ?: "").toString()
     }
 
     private fun initUiState(): AlbumUiState {
