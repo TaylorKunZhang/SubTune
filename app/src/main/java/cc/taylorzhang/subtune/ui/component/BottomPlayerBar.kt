@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.QueueMusic
-import androidx.compose.material.icons.rounded.Pause
-import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,8 +43,10 @@ fun BottomPlayerBar(onPlaybackListClick: () -> Unit) {
         uiState = uiState,
         mediaMetadata = mediaMetadata,
         onClick = { navController.navigate(Screen.Playback.route) },
+        onSeekToPreviousClick = { audioPlayer.seekToPrevious() },
         onPlayClick = { audioPlayer.play() },
         onPauseClick = { audioPlayer.pause() },
+        onSeekToNextClick = { audioPlayer.seekToNext() },
         onPlaybackListClick = onPlaybackListClick,
     )
 }
@@ -56,8 +56,10 @@ private fun BottomPlayerBarContent(
     uiState: AudioPlayerUiState,
     mediaMetadata: MediaMetadata,
     onClick: () -> Unit,
+    onSeekToPreviousClick: () -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
+    onSeekToNextClick: () -> Unit,
     onPlaybackListClick: () -> Unit,
 ) {
     ListItem(
@@ -93,6 +95,14 @@ private fun BottomPlayerBarContent(
         },
         trailingContent = {
             Row {
+                IconButton(onClick = onSeekToPreviousClick) {
+                    Icon(
+                        Icons.Rounded.SkipPrevious,
+                        null,
+                        modifier = Modifier.size(24.dp),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
                 IconButton(
                     onClick = {
                         if (uiState.playWhenReady && !uiState.isPlaying) {
@@ -116,9 +126,17 @@ private fun BottomPlayerBarContent(
                         )
                     }
                 }
+                IconButton(onClick = onSeekToNextClick) {
+                    Icon(
+                        Icons.Rounded.SkipNext,
+                        null,
+                        modifier = Modifier.size(24.dp),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
                 IconButton(onClick = onPlaybackListClick) {
                     Icon(
-                        Icons.Filled.QueueMusic,
+                        Icons.Rounded.QueueMusic,
                         null,
                         modifier = Modifier.size(24.dp),
                         tint = MaterialTheme.colorScheme.onSurface,
@@ -137,8 +155,10 @@ private fun BottomPlayerBarPreview() {
             uiState = AudioPlayerUiState(),
             mediaMetadata = FakeDataUtil.getMediaMetadata(),
             onClick = { },
+            onSeekToPreviousClick = { },
             onPlayClick = { },
             onPauseClick = { },
+            onSeekToNextClick = { },
             onPlaybackListClick = { },
         )
     }
