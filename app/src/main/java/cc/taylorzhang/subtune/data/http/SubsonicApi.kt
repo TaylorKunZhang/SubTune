@@ -9,7 +9,7 @@ interface SubsonicApi {
     /**
      * Used to test connectivity with the server.
      */
-    @GET("rest/ping")
+    @GET("/rest/ping")
     suspend fun ping(): PingResponse
 
     /**
@@ -18,7 +18,7 @@ interface SubsonicApi {
      *
      * @param id The album ID.
      */
-    @GET("rest/getAlbum")
+    @GET("/rest/getAlbum")
     suspend fun getAlbum(@Query("id") id: String): GetAlbumResponse
 
     /**
@@ -31,7 +31,7 @@ interface SubsonicApi {
      * @param offset The list offset. Useful if you for example want to page through the list
      *     of newest albums. Default 0.
      */
-    @GET("rest/getAlbumList2")
+    @GET("/rest/getAlbumList2")
     suspend fun getAlbumList2(
         @Query("type") type: String,
         @Query("size") size: Int?,
@@ -41,7 +41,7 @@ interface SubsonicApi {
     /**
      * Returns all playlists a user is allowed to play.
      */
-    @GET("rest/getPlaylists")
+    @GET("/rest/getPlaylists")
     suspend fun getPlaylists(): GetPlaylistsResponse
 
     /**
@@ -49,7 +49,7 @@ interface SubsonicApi {
      *
      * @param id The playlist ID.
      */
-    @GET("rest/getPlaylist")
+    @GET("/rest/getPlaylist")
     suspend fun getPlaylist(@Query("id") id: String): GetPlaylistResponse
 
     /**
@@ -58,13 +58,13 @@ interface SubsonicApi {
      *
      * @param query Search query.
      */
-    @GET("rest/search3")
+    @GET("/rest/search3")
     suspend fun search3(@Query("query") query: String): Search3Response
 
     /**
      * Searches for and returns lyrics for a given song.
      */
-    @GET("rest/getLyrics")
+    @GET("/rest/getLyrics")
     suspend fun getLyrics(
         @Query("artist") artist: String,
         @Query("title") title: String

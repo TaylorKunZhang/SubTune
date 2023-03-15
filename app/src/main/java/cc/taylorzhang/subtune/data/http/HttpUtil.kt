@@ -23,7 +23,7 @@ import java.net.UnknownHostException
 
 object HttpUtil : KoinComponent {
 
-    const val DEFAULT_BASE_URL = "http://demo.subsonic.org/"
+    const val DEFAULT_BASE_URL = "http://demo.subsonic.org"
 
     /**
      * A unique string identifying the client application.

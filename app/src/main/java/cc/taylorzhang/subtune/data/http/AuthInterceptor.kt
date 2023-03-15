@@ -9,13 +9,11 @@ class AuthInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val httpUrl = HttpUtil.baseUrl().toHttpUrl()
-        val url = request.url.newBuilder().apply {
-            scheme(httpUrl.scheme)
-            host(httpUrl.host)
-            port(httpUrl.port)
-            HttpUtil.addAuthParameter(this)
-        }.build()
+        val url = request.url.toString().replace(HttpUtil.DEFAULT_BASE_URL, HttpUtil.baseUrl())
+            .toHttpUrl()
+            .newBuilder()
+            .apply { HttpUtil.addAuthParameter(this) }
+            .build()
         request = request.newBuilder()
             .url(url)
             .header(HttpHeaders.USER_AGENT, HttpUtil.APPLICATION_IDENTITY)
