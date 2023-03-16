@@ -163,7 +163,7 @@ class MusicRepository(
      */
     fun getCoverArtUri(id: String): Uri {
         return Uri.parse(HttpUtil.baseUrl()).buildUpon()
-            .path("rest/getCoverArt")
+            .appendEncodedPath("rest/getCoverArt")
             .appendQueryParameter("id", id)
             .apply { HttpUtil.addAuthParameter(this) }
             .build()
@@ -178,7 +178,7 @@ class MusicRepository(
      */
     fun getSongStreamUri(id: String, maxBitRate: Int): Uri {
         return Uri.parse(HttpUtil.baseUrl()).buildUpon()
-            .path("rest/stream")
+            .appendEncodedPath("rest/stream")
             .appendQueryParameter("id", id)
             .appendQueryParameter("maxBitRate", maxBitRate.toString())
             .apply { HttpUtil.addAuthParameter(this) }
