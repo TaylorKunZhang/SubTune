@@ -27,8 +27,8 @@ android {
         applicationId "cc.taylorzhang.subtune"
         minSdk 21
         targetSdk 33
-        versionCode 4
-        versionName "1.1.1"
+        versionCode 5
+        versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "zh-rCN", "en"
