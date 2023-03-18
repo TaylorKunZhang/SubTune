@@ -2,6 +2,7 @@ package cc.taylorzhang.subtune.ui.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -121,6 +123,7 @@ private fun LoginContent(
                 }
             },
             visualTransformation = if (uiState.passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardType = KeyboardType.Password,
         )
         LoginTextField(
             value = stringResource(id = R.string.https),
@@ -175,6 +178,7 @@ private fun LoginTextField(
     label: String? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardType: KeyboardType = KeyboardType.Text,
 ) {
     TextField(
         value = value,
@@ -189,6 +193,9 @@ private fun LoginTextField(
         colors = TextFieldDefaults.textFieldColors(
             containerColor = if (MaterialTheme.isLight) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant
         ),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+        )
     )
 }
 
