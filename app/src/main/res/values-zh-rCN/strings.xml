@@ -29,6 +29,8 @@
     <string name="password">密码</string>
     <string name="password_required">密码不能为空</string>
     <string name="https">HTTPS</string>
+    <string name="force_plaintext_password">强制使用明文密码</string>
+    <string name="force_plaintext_password_message">密码以明文发送（不推荐，请确保你的连接安全！）</string>
 
     <string name="album">专辑</string>
     <string name="album_sort_or_filter">专辑排序或筛选</string>

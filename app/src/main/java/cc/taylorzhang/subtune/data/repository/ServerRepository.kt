@@ -28,7 +28,7 @@ class ServerRepository(
     suspend fun updateLoginState(loggedIn: Boolean) {
         serverPreferences.updateLoginState(loggedIn)
         if (!loggedIn) {
-            serverPreferences.removeTokenAndSalt()
+            serverPreferences.removeAuthData()
         }
     }
 }

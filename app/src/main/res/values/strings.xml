@@ -29,6 +29,8 @@
     <string name="password">Password</string>
     <string name="password_required">Password is required</string>
     <string name="https">HTTPS</string>
+    <string name="force_plaintext_password">Force plaintext password</string>
+    <string name="force_plaintext_password_message">Send password in plaintext (legacy, make sure your connection is secure!)</string>
 
     <string name="album">Album</string>
     <string name="album_sort_or_filter">Album Sort Or Filter</string>

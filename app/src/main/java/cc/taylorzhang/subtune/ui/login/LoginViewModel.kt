@@ -56,6 +56,10 @@ class LoginViewModel(
         _uiState.update { it.copy(httpsEnabled = !it.httpsEnabled) }
     }
 
+    fun toggleForcePlaintextPassword() {
+        _uiState.update { it.copy(forcePlaintextPassword = !it.forcePlaintextPassword) }
+    }
+
     fun login() = viewModelScope.launch {
         if (!checkInput()) return@launch
         serverRepository.update(toServer())
@@ -99,9 +103,11 @@ class LoginViewModel(
         return Server(
             url = url,
             username = uiState.value.username,
-            token = md5(uiState.value.password + salt),
-            salt = salt,
+            token = if (uiState.value.forcePlaintextPassword) "" else md5(uiState.value.password + salt),
+            salt = if (uiState.value.forcePlaintextPassword) "" else salt,
             httpsEnabled = httpsEnabled,
+            forcePlaintextPassword = uiState.value.forcePlaintextPassword,
+            password = if (uiState.value.forcePlaintextPassword) uiState.value.password else "",
             loggedIn = false,
         )
     }

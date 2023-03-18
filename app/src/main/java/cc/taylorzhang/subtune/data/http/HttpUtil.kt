@@ -101,8 +101,14 @@ object HttpUtil : KoinComponent {
     fun addAuthParameter(builder: Uri.Builder) {
         val server = serverRepository.serverFlow.value
         builder.appendQueryParameter("u", server.username)
-            .appendQueryParameter("t", server.token)
-            .appendQueryParameter("s", server.salt)
+            .apply {
+                if (server.forcePlaintextPassword) {
+                    appendQueryParameter("p", server.password)
+                } else {
+                    appendQueryParameter("t", server.token)
+                    appendQueryParameter("s", server.salt)
+                }
+            }
             .appendQueryParameter("v", PROTOCOL_VERSION)
             .appendQueryParameter("c", APPLICATION_IDENTITY)
             .appendQueryParameter("f", RESPONSE_DATA_FORMAT)
@@ -111,8 +117,14 @@ object HttpUtil : KoinComponent {
     fun addAuthParameter(builder: HttpUrl.Builder) {
         val server = serverRepository.serverFlow.value
         builder.addQueryParameter("u", server.username)
-            .addQueryParameter("t", server.token)
-            .addQueryParameter("s", server.salt)
+            .apply {
+                if (server.forcePlaintextPassword) {
+                    addQueryParameter("p", server.password)
+                } else {
+                    addQueryParameter("t", server.token)
+                    addQueryParameter("s", server.salt)
+                }
+            }
             .addQueryParameter("v", PROTOCOL_VERSION)
             .addQueryParameter("c", APPLICATION_IDENTITY)
             .addQueryParameter("f", RESPONSE_DATA_FORMAT)

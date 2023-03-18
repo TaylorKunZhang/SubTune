@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.taylorzhang.subtune.R
+import cc.taylorzhang.subtune.ui.component.CustomAlertDialog
 import cc.taylorzhang.subtune.ui.component.ProgressDialog
 import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.navigation.Screen
@@ -30,6 +31,7 @@ import org.koin.androidx.compose.getViewModel
 fun LoginScreen(viewModel: LoginViewModel = getViewModel()) {
     val navController = LocalNavController.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var showForcePlaintextPasswordDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState) {
         if (uiState.loggedIn) {
@@ -43,6 +45,14 @@ fun LoginScreen(viewModel: LoginViewModel = getViewModel()) {
         ProgressDialog()
     }
 
+    CustomAlertDialog(
+        visible = showForcePlaintextPasswordDialog,
+        title = stringResource(id = R.string.force_plaintext_password),
+        text = stringResource(id = R.string.force_plaintext_password_message),
+        onClosed = { showForcePlaintextPasswordDialog = false },
+        onSure = { viewModel.toggleForcePlaintextPassword() },
+    )
+
     LoginContent(
         uiState = uiState,
         onUrlChange = { viewModel.updateUrl(it) },
@@ -50,6 +60,13 @@ fun LoginScreen(viewModel: LoginViewModel = getViewModel()) {
         onPasswordChange = { viewModel.updatePassword(it) },
         onPasswordVisibleClick = { viewModel.togglePasswordVisible() },
         onHttpsEnabledClick = { viewModel.toggleHttpsEnabled() },
+        onForcePlaintextPasswordClick = {
+            if (uiState.forcePlaintextPassword) {
+                viewModel.toggleForcePlaintextPassword()
+            } else {
+                showForcePlaintextPasswordDialog = true
+            }
+        },
         onLogin = { viewModel.login() },
     )
 }
@@ -62,6 +79,7 @@ private fun LoginContent(
     onPasswordChange: (String) -> Unit,
     onPasswordVisibleClick: () -> Unit,
     onHttpsEnabledClick: () -> Unit,
+    onForcePlaintextPasswordClick: () -> Unit,
     onLogin: () -> Unit,
 ) {
     Column(
@@ -117,6 +135,19 @@ private fun LoginContent(
                 }
             },
         )
+        LoginTextField(
+            value = stringResource(id = R.string.force_plaintext_password),
+            onValueChange = {},
+            readOnly = true,
+            trailingIcon = {
+                IconButton(onClick = onForcePlaintextPasswordClick) {
+                    Icon(
+                        imageVector = if (uiState.forcePlaintextPassword) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
+                        null,
+                    )
+                }
+            },
+        )
         Button(
             modifier = Modifier
                 .padding(16.dp)
@@ -167,12 +198,13 @@ private fun LoginScreenPreview() {
     SubTuneTheme {
         LoginContent(
             uiState = LoginUiState(),
-            onUrlChange = {},
-            onUsernameChange = {},
-            onPasswordChange = {},
-            onPasswordVisibleClick = {},
-            onHttpsEnabledClick = {},
-            onLogin = {},
+            onUrlChange = { },
+            onUsernameChange = { },
+            onPasswordChange = { },
+            onPasswordVisibleClick = { },
+            onHttpsEnabledClick = { },
+            onForcePlaintextPasswordClick = { },
+            onLogin = { },
         )
     }
 }

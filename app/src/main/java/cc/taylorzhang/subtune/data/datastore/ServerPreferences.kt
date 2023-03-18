@@ -23,6 +23,8 @@ class ServerPreferences(context: Context) {
         private val TOKEN = stringPreferencesKey("token")
         private val SALT = stringPreferencesKey("salt")
         private val HTTPS_ENABLED = booleanPreferencesKey("https_enabled")
+        private val FORCE_PLAINTEXT_PASSWORD = booleanPreferencesKey("force_plaintext_password")
+        private val PASSWORD = stringPreferencesKey("password")
         private val LOGGED_IN = booleanPreferencesKey("logged_in")
     }
 
@@ -44,6 +46,8 @@ class ServerPreferences(context: Context) {
             preferences[TOKEN] = server.token
             preferences[SALT] = server.salt
             preferences[HTTPS_ENABLED] = server.httpsEnabled
+            preferences[FORCE_PLAINTEXT_PASSWORD] = server.forcePlaintextPassword
+            preferences[PASSWORD] = server.password
             preferences[LOGGED_IN] = server.loggedIn
         }
         _serverFlow.value = server
@@ -54,12 +58,13 @@ class ServerPreferences(context: Context) {
         _serverFlow.update { it.copy(loggedIn = loggedIn) }
     }
 
-    suspend fun removeTokenAndSalt() {
+    suspend fun removeAuthData() {
         dataStore.edit { preferences ->
             preferences.remove(TOKEN)
             preferences.remove(SALT)
+            preferences.remove(PASSWORD)
         }
-        _serverFlow.update { it.copy(token = "", salt = "") }
+        _serverFlow.update { it.copy(token = "", salt = "", password = "") }
     }
 
     private fun toServer(preferences: Preferences): Server {
@@ -69,6 +74,8 @@ class ServerPreferences(context: Context) {
             token = preferences[TOKEN] ?: "",
             salt = preferences[SALT] ?: "",
             httpsEnabled = preferences[HTTPS_ENABLED] ?: false,
+            forcePlaintextPassword = preferences[FORCE_PLAINTEXT_PASSWORD] ?: false,
+            password = preferences[PASSWORD] ?: "",
             loggedIn = preferences[LOGGED_IN] ?: false,
         )
     }
