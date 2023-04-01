@@ -1,5 +1,6 @@
 package cc.taylorzhang.subtune.di
 
+import cc.taylorzhang.subtune.adapter.ForceToBooleanAdapter
 import cc.taylorzhang.subtune.player.AudioPlayer
 import com.squareup.moshi.Moshi
 import org.koin.dsl.module
@@ -11,5 +12,6 @@ val commonModule = module {
 
 private fun provideMoshi(): Moshi {
     return Moshi.Builder()
+        .add(ForceToBooleanAdapter())
         .build()
 }

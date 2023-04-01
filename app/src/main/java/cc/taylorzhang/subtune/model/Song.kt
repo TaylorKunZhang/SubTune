@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import cc.taylorzhang.subtune.adapter.ForceToBoolean
 import com.squareup.moshi.JsonClass
 
 @Keep
@@ -30,6 +31,7 @@ data class Song(
     val artist: String = "",
 
     @ColumnInfo(name = "is_dir")
+    @ForceToBoolean
     val isDir: Boolean = false,
 
     @ColumnInfo(name = "cover_art")
