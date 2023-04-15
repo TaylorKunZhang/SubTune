@@ -42,9 +42,13 @@ fun AlbumScreen(viewModel: AlbumViewModel = getViewModel()) {
     val albums = uiState.albumPagingDataFlow.collectAsLazyPagingItemsProxy()
     var showAlbumSortOrFilterChoiceDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(albums.firstOrNull()?.id) {
-        if (albums.itemCount > 0) {
-            viewModel.gridState.scrollToItem(0)
+    LaunchedEffect(albums.loadState.refresh) {
+        if (albums.loadState.refresh is LoadState.NotLoading && albums.itemCount > 0) {
+            val id = albums[0]?.id
+            if (viewModel.firstItemId != id) {
+                viewModel.firstItemId = id
+                viewModel.gridState.scrollToItem(0)
+            }
         }
     }
 

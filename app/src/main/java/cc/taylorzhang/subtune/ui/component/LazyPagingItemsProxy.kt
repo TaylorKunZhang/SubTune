@@ -30,10 +30,6 @@ interface LazyPagingItemsProxy<T> {
     fun retry()
 
     fun refresh()
-
-    fun firstOrNull(): T? {
-        return if (itemCount == 0) null else this[0]
-    }
 }
 
 @Composable

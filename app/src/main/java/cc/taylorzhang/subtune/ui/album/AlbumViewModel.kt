@@ -25,6 +25,7 @@ class AlbumViewModel(
     val uiState = _uiState.asStateFlow()
 
     val gridState = LazyGridState()
+    var firstItemId: String? = null
 
     fun updateSortType(value: String) = viewModelScope.launch {
         settingsRepository.updateAlbumSortType(value)
