@@ -29,6 +29,7 @@ SubTune is a free and open source music streaming Android client for Subsonic AP
 - Dark theme
 - Dynamic color
 - Lyrics
+- Random play of songs in the library
 
 ## License
 
