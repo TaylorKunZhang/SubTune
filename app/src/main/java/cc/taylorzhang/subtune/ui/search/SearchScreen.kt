@@ -292,8 +292,8 @@ private fun SearchResultItem(
             AsyncImage(
                 model = coverArtUrl,
                 contentDescription = null,
-                placeholder = painterResource(id = R.drawable.cover_default),
-                error = painterResource(id = R.drawable.cover_default),
+                placeholder = painterResource(id = R.drawable.ic_cover_default),
+                error = painterResource(id = R.drawable.ic_cover_default),
                 modifier = Modifier
                     .size(50.dp)
                     .clip(RoundedCornerShape(6.dp)),

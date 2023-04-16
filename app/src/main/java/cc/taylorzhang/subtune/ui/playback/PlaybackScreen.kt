@@ -197,8 +197,8 @@ private fun PlaybackCover(mediaMetadata: MediaMetadata) {
             AsyncImage(
                 model = mediaMetadata.artworkUri,
                 contentDescription = null,
-                placeholder = painterResource(id = R.drawable.cover_default),
-                error = painterResource(id = R.drawable.cover_default),
+                placeholder = painterResource(id = R.drawable.ic_cover_default),
+                error = painterResource(id = R.drawable.ic_cover_default),
                 modifier = Modifier
                     .fillMaxWidth(0.85f)
                     .aspectRatio(1f),
