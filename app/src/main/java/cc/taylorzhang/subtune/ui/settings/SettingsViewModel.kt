@@ -55,6 +55,10 @@ class SettingsViewModel(
         }
     }
 
+    fun updateRandomSongCount(value: Int) = viewModelScope.launch {
+        settingsRepository.updateRandomSongCount(value)
+    }
+
     fun logout() = viewModelScope.launch {
         _uiState.update { it.copy(isProgress = true) }
         serverRepository.updateLoginState(false)

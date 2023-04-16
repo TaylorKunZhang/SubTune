@@ -69,4 +69,10 @@ interface SubsonicApi {
         @Query("artist") artist: String,
         @Query("title") title: String
     ): GetLyricsResponse
+
+    /**
+     * Returns random songs matching the given criteria.
+     */
+    @GET("/rest/getRandomSongs")
+    suspend fun getRandomSongs(@Query("size") size: Int): GetRandomSongsResponse
 }

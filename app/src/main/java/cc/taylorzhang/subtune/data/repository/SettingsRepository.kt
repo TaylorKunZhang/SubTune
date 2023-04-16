@@ -34,6 +34,10 @@ class SettingsRepository(
         settingsPreferences.updateDynamicColor(value)
     }
 
+    suspend fun updateRandomSongCount(value: Int) {
+        settingsPreferences.updateRandomSongCount(value)
+    }
+
     suspend fun clearCache() {
         settingsPreferences.clear()
     }

@@ -157,6 +157,24 @@ class MusicRepository(
     }
 
     /**
+     * Returns random songs matching the given criteria.
+     */
+    suspend fun getRandomSongs(size: Int): ApiResult<List<Song>> {
+        return HttpUtil.apiCall(
+            call = { subsonicApi.getRandomSongs(size).response },
+            saveCacheBlock = { db.songDao().insertAll(it) },
+            readCacheBlock = {
+                val list = db.songDao().getAll()
+                if (list.size <= size) {
+                    list.shuffled()
+                } else {
+                    list.shuffled().take(size)
+                }
+            }
+        )
+    }
+
+    /**
      * Returns a cover art image uri.
      *
      * @param id The ID of a song, album or artist.

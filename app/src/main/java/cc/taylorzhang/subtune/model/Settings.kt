@@ -6,4 +6,5 @@ data class Settings(
     val albumSortType: String = "",
     val preferredTheme: AppTheme = AppTheme.SYSTEM,
     val dynamicColor: Boolean = false,
+    val randomSongCount: Int = 100,
 )

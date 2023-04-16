@@ -43,6 +43,7 @@
         <item>已收藏</item>
         <item>随机</item>
     </string-array>
+    <string name="random_play">随机播放</string>
 
     <string name="playlist">歌单</string>
 
@@ -78,4 +79,7 @@
     <string name="developer">开发者：Taylor Zhang</string>
     <string name="logout">退出登录</string>
     <string name="logout_message">你确定要退出登录吗？</string>
+    <string name="music">音乐</string>
+    <string name="random_song_count">随机歌曲数</string>
+    <string name="random_song_count_invalid">随机歌曲数必须在1到500之间</string>
 </resources>

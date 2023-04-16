@@ -21,6 +21,7 @@ class SettingsPreferences(context: Context) {
         private val ALBUM_SORT_TYPE = stringPreferencesKey("album_sort_type")
         private val PREFERRED_THEME = stringPreferencesKey("preferred_theme")
         private val DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
+        private val RANDOM_SONG_COUNT = intPreferencesKey("random_song_count")
     }
 
     private val dataStore = context.dataStore
@@ -59,6 +60,11 @@ class SettingsPreferences(context: Context) {
         _settingsFlow.update { it.copy(dynamicColor = value) }
     }
 
+    suspend fun updateRandomSongCount(value: Int) {
+        dataStore.edit { preferences -> preferences[RANDOM_SONG_COUNT] = value }
+        _settingsFlow.update { it.copy(randomSongCount = value) }
+    }
+
     suspend fun clear() {
         val preferences = dataStore.edit { it.clear() }
         _settingsFlow.value = toSettings(preferences)
@@ -71,6 +77,7 @@ class SettingsPreferences(context: Context) {
             albumSortType = preferences[ALBUM_SORT_TYPE] ?: "alphabeticalByArtist",
             preferredTheme = AppTheme.fromValue(preferences[PREFERRED_THEME] ?: ""),
             dynamicColor = preferences[DYNAMIC_COLOR] ?: false,
+            randomSongCount = preferences[RANDOM_SONG_COUNT] ?: 100,
         )
     }
 }

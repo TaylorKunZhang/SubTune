@@ -5,9 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import cc.taylorzhang.subtune.R
 import cc.taylorzhang.subtune.data.repository.MusicRepository
 import cc.taylorzhang.subtune.data.repository.SettingsRepository
 import cc.taylorzhang.subtune.model.Album
+import cc.taylorzhang.subtune.model.onError
+import cc.taylorzhang.subtune.model.onSuccess
+import cc.taylorzhang.subtune.util.ToastUtil
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,6 +40,26 @@ class AlbumViewModel(
                 albumPagingDataFlow = getAlbumPagingDataFlow(value),
             )
         }
+    }
+
+    fun randomPlay() = viewModelScope.launch {
+        _uiState.update { it.copy(isLoading = true) }
+        val count = settingsFlow.value.randomSongCount
+        musicRepository.getRandomSongs(count).onSuccess { songs ->
+            if (songs.isEmpty()) {
+                _uiState.update { it.copy(isLoading = false) }
+                ToastUtil.shortToast(R.string.empty_content)
+            } else {
+                _uiState.update { it.copy(isLoading = false, randomSongs = songs) }
+            }
+        }.onError { error ->
+            _uiState.update { it.copy(isLoading = false) }
+            ToastUtil.shortToast(error.message)
+        }
+    }
+
+    fun randomSongsHandled() {
+        _uiState.update { it.copy(randomSongs = null) }
     }
 
     fun getCoverArtUrl(album: Album): String {

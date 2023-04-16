@@ -35,6 +35,7 @@ fun SettingsScreen(viewModel: SettingsViewModel = getViewModel()) {
     var showMaxBitrateMobileChoiceDialog by remember { mutableStateOf(false) }
     var showThemeChoiceDialog by remember { mutableStateOf(false) }
     var showLogoutDialog by remember { mutableStateOf(false) }
+    var showRandomSongCountInputDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState) {
         if (uiState.loggedOut) {
@@ -77,6 +78,13 @@ fun SettingsScreen(viewModel: SettingsViewModel = getViewModel()) {
         onChoice = { viewModel.updatePreferredTheme(it) },
     )
 
+    RandomSongCountInputDialog(
+        visible = showRandomSongCountInputDialog,
+        currentCount = uiState.settings.randomSongCount,
+        onClosed = { showRandomSongCountInputDialog = false },
+        onSure = { viewModel.updateRandomSongCount(it) },
+    )
+
     CustomAlertDialog(
         visible = showLogoutDialog,
         title = stringResource(id = R.string.logout),
@@ -95,6 +103,7 @@ fun SettingsScreen(viewModel: SettingsViewModel = getViewModel()) {
         onMaxBitrateMobileClick = { showMaxBitrateMobileChoiceDialog = true },
         onPreferredThemeClick = { showThemeChoiceDialog = true },
         onDynamicColorCheckedChange = { viewModel.updateDynamicColor(it) },
+        onRandomSongCountClick = { showRandomSongCountInputDialog = true },
         onAboutClick = { navController.navigate(Screen.About.route) },
     )
 }
@@ -107,6 +116,7 @@ private fun SettingsContent(
     onMaxBitrateMobileClick: () -> Unit,
     onPreferredThemeClick: () -> Unit,
     onDynamicColorCheckedChange: (Boolean) -> Unit,
+    onRandomSongCountClick: () -> Unit,
     onAboutClick: () -> Unit,
     onLogoutClick: () -> Unit,
 ) {
@@ -134,6 +144,10 @@ private fun SettingsContent(
                 uiState = uiState,
                 onPreferredThemeClick = onPreferredThemeClick,
                 onDynamicColorCheckedChange = onDynamicColorCheckedChange,
+            )
+            SettingsMusic(
+                uiState = uiState,
+                onRandomSongCountClick = onRandomSongCountClick,
             )
             SettingsOther(
                 onAboutClick = onAboutClick,
@@ -265,6 +279,30 @@ private fun SettingsTheme(
 }
 
 @Composable
+private fun SettingsMusic(
+    uiState: SettingsUiState,
+    onRandomSongCountClick: () -> Unit,
+) {
+    Text(
+        text = stringResource(id = R.string.music),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(horizontal = 16.dp),
+    )
+    ListItem(
+        modifier = Modifier.clickable(onClick = onRandomSongCountClick),
+        colors = ListItemDefaults.colors(
+            containerColor = Color.Transparent,
+        ),
+        headlineText = {
+            Text(text = stringResource(id = R.string.random_song_count))
+        },
+        supportingText = {
+            Text(text = uiState.settings.randomSongCount.toString())
+        }
+    )
+}
+
+@Composable
 private fun SettingsOther(
     onAboutClick: () -> Unit,
 ) {
@@ -304,6 +342,7 @@ fun SettingsScreenPreview() {
             onMaxBitrateMobileClick = { },
             onPreferredThemeClick = { },
             onDynamicColorCheckedChange = { },
+            onRandomSongCountClick = { },
             onAboutClick = { },
             onLogoutClick = { },
         )

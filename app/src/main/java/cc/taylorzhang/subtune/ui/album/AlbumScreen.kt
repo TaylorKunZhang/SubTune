@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import cc.taylorzhang.subtune.R
 import cc.taylorzhang.subtune.model.Album
+import cc.taylorzhang.subtune.player.LocalAudioPlayer
 import cc.taylorzhang.subtune.ui.component.*
 import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.navigation.Screen
@@ -38,6 +39,7 @@ private val ITEM_SPACING = 8.dp
 @Composable
 fun AlbumScreen(viewModel: AlbumViewModel = getViewModel()) {
     val navController = LocalNavController.current
+    val audioPlayer = LocalAudioPlayer.current
     val uiState by viewModel.uiState.collectAsState()
     val albums = uiState.albumPagingDataFlow.collectAsLazyPagingItemsProxy()
     var showAlbumSortOrFilterChoiceDialog by remember { mutableStateOf(false) }
@@ -52,6 +54,19 @@ fun AlbumScreen(viewModel: AlbumViewModel = getViewModel()) {
         }
     }
 
+    LaunchedEffect(uiState) {
+        uiState.randomSongs?.let { randomSongs ->
+            if (audioPlayer.setPlaybackList(randomSongs)) {
+                navController.navigate(Screen.Playback.route)
+            }
+            viewModel.randomSongsHandled()
+        }
+    }
+
+    if (uiState.isLoading) {
+        ProgressDialog()
+    }
+
     AlbumSortOrFilterChoiceDialog(
         visible = showAlbumSortOrFilterChoiceDialog,
         currentSort = uiState.sortType,
@@ -63,6 +78,7 @@ fun AlbumScreen(viewModel: AlbumViewModel = getViewModel()) {
         albums = albums,
         onSortOrFilterClick = { showAlbumSortOrFilterChoiceDialog = true },
         onSearchClick = { navController.navigate(Screen.Search.route) },
+        onRandomPlayClick = { viewModel.randomPlay() },
         onRefresh = { albums.refresh() },
         coverArtUrlGetter = { viewModel.getCoverArtUrl(it) },
         onItemClick = { navController.navigate(Screen.AlbumDetail.argsRoute(it.id)) },
@@ -76,6 +92,7 @@ private fun AlbumContent(
     albums: LazyPagingItemsProxy<Album>,
     onSortOrFilterClick: () -> Unit,
     onSearchClick: () -> Unit,
+    onRandomPlayClick: () -> Unit,
     onRefresh: () -> Unit,
     coverArtUrlGetter: (Album) -> String,
     onItemClick: (Album) -> Unit,
@@ -84,27 +101,41 @@ private fun AlbumContent(
     val isLoading = albums.loadState.refresh is LoadState.Loading
     val refreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
 
-    Column(
-        modifier = Modifier.previewBackground(MaterialTheme.colorScheme.surface),
-    ) {
-        TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent,
-            ),
-            title = { Text(stringResource(id = R.string.album)) },
-            actions = {
-                IconButton(onClick = onSortOrFilterClick) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent,
+                ),
+                title = { Text(stringResource(id = R.string.album)) },
+                actions = {
+                    IconButton(onClick = onSortOrFilterClick) {
+                        Icon(
+                            Icons.Filled.FilterList,
+                            stringResource(id = R.string.album_sort_or_filter),
+                        )
+                    }
+                    IconButton(onClick = onSearchClick) {
+                        Icon(Icons.Filled.Search, stringResource(id = R.string.search))
+                    }
+                },
+            )
+        },
+        floatingActionButton = {
+            if (albums.itemCount > 0) {
+                FloatingActionButton(onClick = onRandomPlayClick) {
                     Icon(
-                        Icons.Filled.FilterList,
-                        stringResource(id = R.string.album_sort_or_filter),
+                        painterResource(id = R.drawable.ic_random),
+                        stringResource(id = R.string.random_play),
                     )
                 }
-                IconButton(onClick = onSearchClick) {
-                    Icon(Icons.Filled.Search, stringResource(id = R.string.search))
-                }
-            },
-        )
+            }
+        },
+        containerColor = previewColor(MaterialTheme.colorScheme.background),
+        contentWindowInsets = WindowInsets.statusBars,
+    ) { padding ->
         SwipeRefresh(
+            modifier = Modifier.padding(padding),
             state = refreshState,
             onRefresh = onRefresh,
             indicator = { state, trigger ->
@@ -195,6 +226,7 @@ fun AlbumScreenPreview() {
             albums = lazyPagingItemsPreview(FakeDataUtil.listAlbums()),
             onSortOrFilterClick = { },
             onSearchClick = { },
+            onRandomPlayClick = { },
             onRefresh = { },
             coverArtUrlGetter = { "" },
             onItemClick = { },

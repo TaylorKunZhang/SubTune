@@ -52,6 +52,7 @@
         <item>starred</item>
         <item>random</item>
     </string-array>
+    <string name="random_play">Random Play</string>
 
     <string name="playlist">Playlist</string>
 
@@ -88,4 +89,7 @@
     <string name="developer">Made with ♥ by Taylor Zhang</string>
     <string name="logout">Logout</string>
     <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="music">Music</string>
+    <string name="random_song_count">Random song count</string>
+    <string name="random_song_count_invalid">Random song count must be between 1 and 500</string>
 </resources>

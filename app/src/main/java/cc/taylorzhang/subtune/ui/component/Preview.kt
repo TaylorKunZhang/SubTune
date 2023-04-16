@@ -18,3 +18,7 @@ fun Modifier.previewBackground(
     color: Color,
     shape: Shape = RectangleShape,
 ) = composed { if (isPreview()) background(color, shape) else this }
+
+@ReadOnlyComposable
+@Composable
+fun previewColor(color: Color) = if (isPreview()) color else Color.Transparent
