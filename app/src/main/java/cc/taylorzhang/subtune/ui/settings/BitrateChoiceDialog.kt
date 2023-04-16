@@ -1,11 +1,11 @@
 package cc.taylorzhang.subtune.ui.settings
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cc.taylorzhang.subtune.R
+import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 import com.maxkeppeker.sheets.core.models.base.Header
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.list.ListDialog
@@ -53,7 +53,7 @@ fun BitrateChoiceDialog(
 @Preview
 @Composable
 private fun BitrateChoiceDialogPreview() {
-    MaterialTheme {
+    SubTuneTheme {
         BitrateChoiceDialog(
             visible = true,
             title = stringResource(id = R.string.max_bitrate_wifi),

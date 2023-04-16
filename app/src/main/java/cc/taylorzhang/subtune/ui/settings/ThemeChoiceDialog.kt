@@ -1,12 +1,12 @@
 package cc.taylorzhang.subtune.ui.settings
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cc.taylorzhang.subtune.R
 import cc.taylorzhang.subtune.model.AppTheme
+import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 import com.maxkeppeker.sheets.core.models.base.Header
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.list.ListDialog
@@ -48,7 +48,7 @@ fun ThemeChoiceDialog(
 @Preview
 @Composable
 private fun ThemeChoiceDialogPreview() {
-    MaterialTheme {
+    SubTuneTheme {
         ThemeChoiceDialog(
             visible = true,
             currentTheme = AppTheme.LIGHT,
