@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,6 +15,7 @@ import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.navigation.Screen
 import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 import cc.taylorzhang.subtune.ui.theme.isLight
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -35,10 +37,21 @@ fun SplashScreen(viewModel: SplashViewModel = getViewModel()) {
 
 @Composable
 private fun SplashContent() {
+    val systemUiController = rememberSystemUiController()
+    val backgroundColor = if (MaterialTheme.isLight) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant
+    }
+
+    SideEffect {
+        systemUiController.setNavigationBarColor(backgroundColor)
+    }
+
     Box(
         Modifier
             .fillMaxSize()
-            .background(if (MaterialTheme.isLight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant),
+            .background(backgroundColor),
     ) {}
 }
 

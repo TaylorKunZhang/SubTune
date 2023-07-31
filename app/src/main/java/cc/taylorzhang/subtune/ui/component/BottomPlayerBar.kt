@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -65,7 +66,7 @@ private fun BottomPlayerBarContent(
     ListItem(
         modifier = Modifier.clickable(onClick = onClick),
         colors = ListItemDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            containerColor = getBottomPlayerBarBackgroundColor(),
         ),
         leadingContent = {
             AsyncImage(
@@ -145,6 +146,16 @@ private fun BottomPlayerBarContent(
             }
         }
     )
+}
+
+@Composable
+fun isBottomPlayerBarVisible(uiState: AudioPlayerUiState): Boolean {
+    return uiState.mediaItem != null
+}
+
+@Composable
+fun getBottomPlayerBarBackgroundColor(): Color {
+    return MaterialTheme.colorScheme.secondaryContainer
 }
 
 @Preview

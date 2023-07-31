@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,12 +24,19 @@ import androidx.core.graphics.drawable.toBitmap
 import cc.taylorzhang.subtune.R
 import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun AboutScreen() {
     val navController = LocalNavController.current
     val context = LocalContext.current
     val versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+    val systemUiController = rememberSystemUiController()
+    val navigationBarColor = MaterialTheme.colorScheme.background
+
+    SideEffect {
+        systemUiController.setNavigationBarColor(navigationBarColor)
+    }
 
     AboutContent(
         versionName = versionName,

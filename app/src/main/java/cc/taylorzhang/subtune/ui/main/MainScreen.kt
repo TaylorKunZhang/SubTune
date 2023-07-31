@@ -15,16 +15,31 @@ import cc.taylorzhang.subtune.ui.album.AlbumScreenPreview
 import cc.taylorzhang.subtune.ui.component.BottomPlayerBar
 import cc.taylorzhang.subtune.ui.component.isPreview
 import cc.taylorzhang.subtune.ui.playback.PlaybackListDialog
+import cc.taylorzhang.subtune.ui.playback.getPlaybackListDialogBackgroundColor
 import cc.taylorzhang.subtune.ui.playlist.PlaylistScreen
 import cc.taylorzhang.subtune.ui.playlist.PlaylistScreenPreview
 import cc.taylorzhang.subtune.ui.settings.SettingsScreen
 import cc.taylorzhang.subtune.ui.settings.SettingsScreenPreview
 import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel = getViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val playbackListDialogBackgroundColor = getPlaybackListDialogBackgroundColor()
+    val systemUiController = rememberSystemUiController()
+    val navigationBarColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+        NavigationBarDefaults.Elevation
+    )
+
+    SideEffect {
+        if (uiState.playbackListVisible) {
+            systemUiController.setNavigationBarColor(playbackListDialogBackgroundColor)
+        } else {
+            systemUiController.setNavigationBarColor(navigationBarColor)
+        }
+    }
 
     MainContent(
         tabs = viewModel.tabs,

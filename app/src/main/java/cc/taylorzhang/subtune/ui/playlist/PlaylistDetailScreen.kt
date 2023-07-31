@@ -22,16 +22,15 @@ import cc.taylorzhang.subtune.R
 import cc.taylorzhang.subtune.model.Playlist
 import cc.taylorzhang.subtune.model.Song
 import cc.taylorzhang.subtune.player.LocalAudioPlayer
-import cc.taylorzhang.subtune.ui.component.BottomPlayerBar
-import cc.taylorzhang.subtune.ui.component.EmptyLayout
-import cc.taylorzhang.subtune.ui.component.ErrorLayout
-import cc.taylorzhang.subtune.ui.component.LoadingLayout
+import cc.taylorzhang.subtune.ui.component.*
 import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.navigation.Screen
 import cc.taylorzhang.subtune.ui.playback.PlaybackListDialog
+import cc.taylorzhang.subtune.ui.playback.getPlaybackListDialogBackgroundColor
 import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 import cc.taylorzhang.subtune.util.FakeDataUtil
 import coil.compose.AsyncImage
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -43,7 +42,23 @@ fun PlaylistDetailScreen(
     val navController = LocalNavController.current
     val audioPlayer = LocalAudioPlayer.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val audioPlayerUiState by audioPlayer.uiState.collectAsStateWithLifecycle()
+    val playbackListDialogBackgroundColor = getPlaybackListDialogBackgroundColor()
+    val systemUiController = rememberSystemUiController()
+    val navigationBarColor = if (isBottomPlayerBarVisible(audioPlayerUiState)) {
+        getBottomPlayerBarBackgroundColor()
+    } else {
+        MaterialTheme.colorScheme.background
+    }
     var isShowPlaybackListDialog by remember { mutableStateOf(false) }
+
+    SideEffect {
+        if (isShowPlaybackListDialog) {
+            systemUiController.setNavigationBarColor(playbackListDialogBackgroundColor)
+        } else {
+            systemUiController.setNavigationBarColor(navigationBarColor)
+        }
+    }
 
     PlaylistDetailContent(
         uiState = uiState,

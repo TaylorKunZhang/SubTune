@@ -42,6 +42,7 @@ import cc.taylorzhang.subtune.ui.navigation.Screen
 import cc.taylorzhang.subtune.ui.theme.*
 import cc.taylorzhang.subtune.util.FakeDataUtil
 import coil.compose.AsyncImage
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 import kotlin.math.min
 
@@ -52,6 +53,12 @@ fun SearchScreen(viewModel: SearchViewModel = getViewModel()) {
     val navController = LocalNavController.current
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     val audioPlayer = LocalAudioPlayer.current
+    val systemUiController = rememberSystemUiController()
+    val navigationBarColor = MaterialTheme.colorScheme.background
+
+    SideEffect {
+        systemUiController.setNavigationBarColor(navigationBarColor)
+    }
 
     SearchContent(
         uiState = uiState,

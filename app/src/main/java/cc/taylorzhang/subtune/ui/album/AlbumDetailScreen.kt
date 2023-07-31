@@ -16,15 +16,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.taylorzhang.subtune.model.Album
 import cc.taylorzhang.subtune.model.Song
 import cc.taylorzhang.subtune.player.LocalAudioPlayer
-import cc.taylorzhang.subtune.ui.component.BottomPlayerBar
-import cc.taylorzhang.subtune.ui.component.EmptyLayout
-import cc.taylorzhang.subtune.ui.component.ErrorLayout
-import cc.taylorzhang.subtune.ui.component.LoadingLayout
+import cc.taylorzhang.subtune.ui.component.*
 import cc.taylorzhang.subtune.ui.navigation.LocalNavController
 import cc.taylorzhang.subtune.ui.navigation.Screen
 import cc.taylorzhang.subtune.ui.playback.PlaybackListDialog
+import cc.taylorzhang.subtune.ui.playback.getPlaybackListDialogBackgroundColor
 import cc.taylorzhang.subtune.ui.theme.SubTuneTheme
 import cc.taylorzhang.subtune.util.FakeDataUtil
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -36,7 +35,23 @@ fun AlbumDetailScreen(
     val navController = LocalNavController.current
     val audioPlayer = LocalAudioPlayer.current
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+    val audioPlayerUiState by audioPlayer.uiState.collectAsStateWithLifecycle()
+    val playbackListDialogBackgroundColor = getPlaybackListDialogBackgroundColor()
+    val systemUiController = rememberSystemUiController()
+    val navigationBarColor = if (isBottomPlayerBarVisible(audioPlayerUiState)) {
+        getBottomPlayerBarBackgroundColor()
+    } else {
+        MaterialTheme.colorScheme.background
+    }
     var isShowPlaybackListDialog by remember { mutableStateOf(false) }
+
+    SideEffect {
+        if (isShowPlaybackListDialog) {
+            systemUiController.setNavigationBarColor(playbackListDialogBackgroundColor)
+        } else {
+            systemUiController.setNavigationBarColor(navigationBarColor)
+        }
+    }
 
     AlbumDetailContent(
         uiState = uiState,

@@ -54,7 +54,17 @@ fun PlaybackScreen(viewModel: PlaybackViewModel = getViewModel()) {
     val systemUiController = rememberSystemUiController()
     val navController = LocalNavController.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val playbackListDialogBackgroundColor = getPlaybackListDialogBackgroundColor()
     var isShowPlaybackListDialog by remember { mutableStateOf(false) }
+
+    SideEffect {
+        if (isShowPlaybackListDialog) {
+            systemUiController.setNavigationBarColor(playbackListDialogBackgroundColor)
+        } else {
+            systemUiController.setNavigationBarColor(Color.Transparent)
+            systemUiController.isNavigationBarContrastEnforced = false
+        }
+    }
 
     DisposableEffect(Unit) {
         systemUiController.statusBarDarkContentEnabled = false

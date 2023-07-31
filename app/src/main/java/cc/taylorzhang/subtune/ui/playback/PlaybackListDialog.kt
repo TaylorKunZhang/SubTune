@@ -122,6 +122,7 @@ private fun PlaybackListContent(
     ModalBottomSheet(
         onDismissRequest = { },
         sheetState = sheetState,
+        containerColor = getPlaybackListDialogBackgroundColor(),
         tonalElevation = ElevationTokens.Level0,
     ) {
         Column(
@@ -214,6 +215,11 @@ private fun PlaybackListItem(
             }
         }
     )
+}
+
+@Composable
+fun getPlaybackListDialogBackgroundColor(): Color {
+    return MaterialTheme.colorScheme.surface
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
