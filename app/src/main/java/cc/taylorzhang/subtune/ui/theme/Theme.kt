@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
+import cc.taylorzhang.subtune.model.AppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColors = lightColorScheme(
@@ -77,17 +78,29 @@ val MaterialTheme.isLight: Boolean get() = innerIsLight
 
 @Composable
 fun SubTuneTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    appTheme: AppTheme = AppTheme.SYSTEM,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    innerIsLight = !darkTheme
+    val darkOrBlack = when (appTheme) {
+        AppTheme.SYSTEM -> isSystemInDarkTheme()
+        AppTheme.DARK, AppTheme.BLACK -> true
+        AppTheme.LIGHT -> false
+    }
+    innerIsLight = !darkOrBlack
     val systemUiController = rememberSystemUiController()
-    val colorScheme = if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+    var colorScheme = if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val context = LocalContext.current
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        if (darkOrBlack) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
-        if (darkTheme) DarkColors else LightColors
+        if (darkOrBlack) DarkColors else LightColors
+    }
+    if (appTheme == AppTheme.BLACK) {
+        colorScheme = colorScheme.copy(
+            background = md_theme_black_background,
+            surface = md_theme_black_surface,
+        )
     }
 
     SideEffect {

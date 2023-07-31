@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,7 +17,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.navigation.NavHostController
-import cc.taylorzhang.subtune.model.AppTheme
 import cc.taylorzhang.subtune.player.AudioPlayer
 import cc.taylorzhang.subtune.player.LocalAudioPlayer
 import cc.taylorzhang.subtune.player.PlaybackService
@@ -65,11 +63,7 @@ class MainActivity : ComponentActivity() {
             }
 
             SubTuneTheme(
-                darkTheme = when (uiState.preferredTheme) {
-                    AppTheme.SYSTEM -> isSystemInDarkTheme()
-                    AppTheme.LIGHT -> false
-                    AppTheme.DARK -> true
-                },
+                appTheme = uiState.preferredTheme,
                 dynamicColor = uiState.dynamicColor,
             ) {
                 CompositionLocalProvider(

@@ -72,6 +72,7 @@
     <string name="theme_follow_system">跟随系统</string>
     <string name="theme_light_mode">浅色模式</string>
     <string name="theme_dark_mode">深色模式</string>
+    <string name="theme_black_mode">黑色模式</string>
     <string name="dynamic_color">动态颜色</string>
     <string name="other">其他</string>
     <string name="about_subtune">关于 SubTune</string>

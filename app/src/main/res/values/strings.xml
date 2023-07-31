@@ -81,6 +81,7 @@
     <string name="theme_follow_system">Follow System</string>
     <string name="theme_light_mode">Light Mode</string>
     <string name="theme_dark_mode">Dark Mode</string>
+    <string name="theme_black_mode">Black Mode</string>
     <string name="dynamic_color">Dynamic Color</string>
     <string name="other">Other</string>
     <string name="about_subtune">About SubTune</string>
